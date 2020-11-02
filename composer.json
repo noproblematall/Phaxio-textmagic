@@ -1,0 +1,12 @@
+{
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/textmagic/textmagic-rest-php-v2.git"
+        }
+    ],
+    "require": {
+        "textmagic/textmagic-rest-php-v2": "dev-master#v2.0.1588",
+        "phaxio/phaxio": "^2.0"
+    }
+}
