@@ -82,47 +82,47 @@ if (isset($_POST) && !empty($_POST)) {
 
     unlink($file);
     
-    // Phaxio Part -----------
-    // $params = array(
-    //     'to' => $phaxio_phone,
-    //     'file' => array(
-    //         fopen($pdf_name, 'r')
-    //     )
-    // );
+    Phaxio Part -----------
+    $params = array(
+        'to' => $phaxio_phone,
+        'file' => array(
+            fopen($pdf_name, 'r')
+        )
+    );
     
-    // $phaxio = new Phaxio($apiKeys[$apiMode], $apiSecrets[$apiMode], $apiHost);
-    // $result = $phaxio->sendFax($params);
+    $phaxio = new Phaxio($apiKeys[$apiMode], $apiSecrets[$apiMode], $apiHost);
+    $result = $phaxio->sendFax($params);
 
-    // Textmagic Part -----------
+    Textmagic Part -----------
     
-    // $config = Configuration::getDefaultConfiguration()
-    // ->setUsername($textmagic_name)
-    // ->setPassword($textmagic_key);
+    $config = Configuration::getDefaultConfiguration()
+    ->setUsername($textmagic_name)
+    ->setPassword($textmagic_key);
 
-    // $api = new TextMagicApi(
-    //     new GuzzleHttp\Client(),
-    //     $config
-    // );
+    $api = new TextMagicApi(
+        new GuzzleHttp\Client(),
+        $config
+    );
 
-    // $file = new \SplFileObject($pdf_name);
+    $file = new \SplFileObject($pdf_name);
 
-    // try {        
-    //     $result = $api->uploadMessageAttachment($file);
-    //     $result = json_decode($result);
-    //     $text = 'Please download this file you faxed for your records.  my.textmagic.com/'.$result->href;
-    //     $input = new SendMessageInputObject();
-    //     $input->setText($text);
-    //     $input->setPhones($phone);
-    //     try {
-    //         $result = $api->sendMessage($input);
-    //         var_dump($result);
-    //     } catch (Exception $e) {
-    //         echo 'Exception when calling TextMagicApi->sendMessage: ', $e->getMessage(), PHP_EOL;
-    //     }
+    try {        
+        $result = $api->uploadMessageAttachment($file);
+        $result = json_decode($result);
+        $text = 'Please download this file you faxed for your records.  my.textmagic.com/'.$result->href;
+        $input = new SendMessageInputObject();
+        $input->setText($text);
+        $input->setPhones($phone);
+        try {
+            $result = $api->sendMessage($input);
+            var_dump($result);
+        } catch (Exception $e) {
+            echo 'Exception when calling TextMagicApi->sendMessage: ', $e->getMessage(), PHP_EOL;
+        }
 
-    // } catch (Exception $e) {
-    //     echo 'Exception when calling TextMagicApi->uploadMessageAttachment: ', $e->getMessage(), PHP_EOL;
-    // }
+    } catch (Exception $e) {
+        echo 'Exception when calling TextMagicApi->uploadMessageAttachment: ', $e->getMessage(), PHP_EOL;
+    }
 
-    // unlink($pdf_name);
+    unlink($pdf_name);
 }
